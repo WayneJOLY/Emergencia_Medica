@@ -9,7 +9,7 @@ namespace Emergencia_Medica
     public class CAuto:CVehiculo
     {
 
-        CAuto(string patente, string marca, string modelo) :base(patente,marca,modelo)
+        public CAuto(string patente, string marca, string modelo) :base(patente,marca,modelo)
         {
 
         }

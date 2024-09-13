@@ -16,7 +16,7 @@ namespace Emergencia_Medica
     {
         private TipoDeAmbulancia tipoDeAmbulancia;
 
-        CAmbulancia(string patente, string marca, string modelo,uint tipoAmbulancia) : base(patente, marca, modelo)
+        public CAmbulancia(string patente, string marca, string modelo,uint tipoAmbulancia) : base(patente, marca, modelo)
         {
             this.tipoDeAmbulancia = (TipoDeAmbulancia)tipoAmbulancia;
         }
