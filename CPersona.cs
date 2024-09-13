@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Emergencia_Medica
 {
-    internal class CPersona
+    public class CPersona
     {
         string nombre;
         string apellido;

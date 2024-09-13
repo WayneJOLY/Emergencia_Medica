@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Emergencia_Medica
 {
-    internal class CChofer:CPersona
+    public class CChofer:CPersona
     {
 
         string codigo;

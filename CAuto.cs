@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace Emergencia_Medica
 {
-    internal class CAuto:CVehiculo
+    public class CAuto:CVehiculo
     {
+
+        CAuto(string patente, string marca, string modelo) :base(patente,marca,modelo)
+        {
+
+        }
     }
 }

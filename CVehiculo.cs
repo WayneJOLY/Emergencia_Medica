@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Emergencia_Medica
 {
-    internal class CVehiculo
+    public class CVehiculo
     {
         private string patente;
         private string marca;

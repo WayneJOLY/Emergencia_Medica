@@ -6,29 +6,31 @@ using System.Threading.Tasks;
 
 namespace Emergencia_Medica
 {
-    enum CATEGOTIA_PROFECIONAL
+   public  enum CategoriaProfecional
     {
         medico,
         enfermero,
         paramedico
     }
-    internal class CiProfecionales:CPersona
+    public class CiProfecionales:CPersona
     {
         string matricula;
         uint codigo;
-        Enum CATEGOTIA_PROFECIONAL ;
+        private CategoriaProfecional categoriaProfecional;
 
-        public CiProfecionales(string nombre, string apellido,string matricula, uint codigo, Enum cATEGOTIA_PROFECIONAL):base(nombre,apellido)
+        public CiProfecionales(string nombre, string apellido,string matricula, uint codigo, uint cATEGOTIA_PROFECIONAL):base(nombre,apellido)
         {
             this.matricula = matricula;
             this.codigo = codigo;
-            CATEGOTIA_PROFECIONAL = cATEGOTIA_PROFECIONAL;
+            this.categoriaProfecional = (CategoriaProfecional)cATEGOTIA_PROFECIONAL;
         }
 
 
         public override string ToString()
         {
-            return base.ToString() + "\n Matricula :"+ this.matricula + "\n Codigo :"+ this.codigo +"\n Categoria Profecional :"+ this.CATEGOTIA_PROFECIONAL.ToString();
+            return base.ToString() + "\n Matricula :"+ this.matricula + "\n Codigo :"+ this.codigo +"\n Categoria Profecional :"+ this.categoriaProfecional.ToString();
         }
+
+        
     }
 }
