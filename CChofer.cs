@@ -21,7 +21,10 @@ namespace Emergencia_Medica
         }
 
 
-
+        public string getCodigo()
+        {
+            return codigo;
+        }
         public override string ToString()
         {
             return base.ToString() +"\n Codigo :"+ this.codigo +"\n N° de Licencia :"+ this.numero_de_Licencia +"\n Distrito :" + this.distrito;

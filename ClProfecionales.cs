@@ -31,6 +31,6 @@ namespace Emergencia_Medica
             return base.ToString() + "\n Matricula :"+ this.matricula + "\n Codigo :"+ this.codigo +"\n Categoria Profecional :"+ this.categoriaProfecional.ToString();
         }
 
-        
+        public uint geCodigo() { return this.codigo; }
     }
 }
