@@ -1,4 +1,6 @@
-﻿namespace Emergencia_Medica
+﻿using System.Collections;
+
+namespace Emergencia_Medica
 {
     internal class Program
     {
@@ -6,19 +8,25 @@
         {
             // INICIO VARIABLES
             sbyte opcion;
-            string nombre, apellido, distrito, codigo, patente, marca, modelo;
-            uint licencia, tipoDeProfecional, matricula, tipoDeAmbulancia;
+            string nombre, apellido, distrito, codigo, codigoDelProfecional, patente, marca, modelo, matricula;
+            uint licencia, tipoDeProfecional, tipoDeAmbulancia;
             char tipoDePersona, tipoDeVehiculo;
 
+            DateOnly fecha;
             CChofer chofer;
             CiProfecionales profecionale;
             CAmbulancia ambulancia;
-            CAuto auto;
+            CAuto auto;CVehiculo vehiculo;
+            CConformacion conformacion;
 
             List<CChofer> listaDeChoferes = new List<CChofer>();
             List<CiProfecionales> listaDeProfecionales = new List<CiProfecionales>();
             List<CAuto> listaDeAutos = new List<CAuto>();
             List<CAmbulancia> listaDeAmbulancia = new List<CAmbulancia>();
+            List<CConformacion> listaDeConformaciones = new List<CConformacion>();
+
+            ArrayList profcionalesDeLaConformacion = new ArrayList();
+            ArrayList listaTotaldeVehiculos = new ArrayList();
 
 
             //CATEGORIA_PROFECIONAL cat;
@@ -67,7 +75,7 @@
                             case 'B':
 
                                 tipoDeProfecional = uint.Parse(interfaz.PedirDato(" El Tipo de Profecional \n [1] Medico \n [2] Enfermero \n [3] ParaMedico"));
-                                matricula = uint.Parse(interfaz.PedirDato("El Numero de Matricula del Profcional"));
+                                matricula = interfaz.PedirDato("El Numero de Matricula del Profcional");
 
                                 profecionale = new CiProfecionales(nombre, apellido, codigo, matricula, tipoDeProfecional);
                                 listaDeProfecionales.Add(profecionale);
@@ -108,7 +116,7 @@
                             case 'B':
                                 tipoDeAmbulancia = uint.Parse(interfaz.PedirDato("El tipo de Ambulancia \n [1] emergencia \n[2] terapia_intensiva_móvil \n [3]  unidad_coronaria_móvil"));
 
-                                if(tipoDeAmbulancia>0 &&  tipoDeAmbulancia< 4)
+                                if (tipoDeAmbulancia > 0 && tipoDeAmbulancia < 4)
                                 {
                                     ambulancia = new CAmbulancia(patente, marca, modelo, tipoDeAmbulancia);
                                     listaDeAmbulancia.Add(ambulancia);
@@ -118,6 +126,28 @@
                         break;
                     case 4:
 
+                        codigo = interfaz.PedirDato("El Codigo Del Chofer");
+
+                        chofer = BuscarChofer(codigo);
+                        patente = interfaz.PedirDato("La Patente Del Vehiculo");
+
+                        vehiculo =  BuscarVeHICULO(patente);
+
+                        fecha = DateOnly.Parse(interfaz.PedirDato("La fecha  de Salida de la Conformacion "));
+                        codigoDelProfecional = interfaz.PedirDato("El Codigo del Profecional ");
+                        do
+                        {
+
+                            profecionale = BucarProfecional(codigoDelProfecional);
+                            if (profecionale != null)
+                            {
+                                profcionalesDeLaConformacion.Add(profecionale);
+                            }
+
+                            codigoDelProfecional = interfaz.PedirDato("El Codigo del Profecional \n Presione [N] PARA SALIR");
+                        } while (codigoDelProfecional != "N" || codigoDelProfecional != "n");
+
+                        conformacion = new CConformacion(fecha, chofer, profcionalesDeLaConformacion, vehiculo);
                         break;
                 }
 
@@ -127,7 +157,7 @@
 
 
 
-            CiProfecionales BucarProfecional(uint legajo)
+            CiProfecionales BucarProfecional(string legajo)
             {
                 foreach (CiProfecionales profecional in listaDeProfecionales)
                 {
@@ -150,10 +180,43 @@
                     }
                 }
 
-                return null ;
+                return null;
             }
+
+            CVehiculo BuscarVeHICULO(string patente)
+            {
+                ArrayList arrayList = new ArrayList();
+
+                arrayList = UnionDeListasAUTOSyAmbulancia(listaDeAutos, listaDeAmbulancia);
+
+                foreach (CVehiculo auto in arrayList)
+                {
+                    if (auto.getPatente() == patente)
+                    {
+                        return auto;
+                    }
+                }
+
+                return null;
+            }
+
+            ArrayList UnionDeListasAUTOSyAmbulancia(List<CAuto> auto, List<CAmbulancia> ambulancia)
+            {
+                ArrayList arrayList = new ArrayList();
+
+                foreach (CAuto cAuto in auto)
+                {
+                    arrayList.Add(cAuto);
+                }
+
+                foreach (CAmbulancia mbulancia in ambulancia)
+                {
+                    arrayList.Add(mbulancia);
+                }
+
+                return arrayList;
+            }
+
         }
-
-
     }
 }
