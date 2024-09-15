@@ -12,13 +12,15 @@ namespace Emergencia_Medica
         DateOnly fecha;
         CChofer chofer;
         ArrayList listaDeIntergrantes;
+        CVehiculo vehiculo;
         bool esApto;
 
-        CConformacion(DateOnly fecha, CChofer chofer, ArrayList listaDeIntergrantes)
+        public CConformacion(DateOnly fecha, CChofer chofer, ArrayList listaDeIntergrantes,CVehiculo vehiculo)
         {
             this.fecha = fecha;
             this.chofer = chofer;
             this.listaDeIntergrantes = listaDeIntergrantes;
+            this.vehiculo = vehiculo;
         }
 
         public bool AgregarIntegrante(CPersona persona)
@@ -38,6 +40,17 @@ namespace Emergencia_Medica
             this.esApto = esApto;
         } 
         
+        public bool AgregarUnIntergrante(CPersona persona)
+        {
+            listaDeIntergrantes.Add(persona);
+            return true;
+        }
+
+        public bool SacarUnIntergrante(CPersona persona)
+        {
+            listaDeIntergrantes.Remove(persona);
+            return true;
+        }
         public override string ToString()
         {
             string datos = "";
