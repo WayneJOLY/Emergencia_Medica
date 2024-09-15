@@ -19,6 +19,11 @@ namespace Emergencia_Medica
             this.modelo = modelo;
         }
 
+        public string getPatente()
+        {
+            return patente;
+        }
+
         public override string ToString()
         {
             return "\n Patente :"+ this.patente + "\n Marca :"+ this.marca +"\n Modelo :"+ this.modelo;

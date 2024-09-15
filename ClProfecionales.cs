@@ -15,10 +15,10 @@ namespace Emergencia_Medica
     public class CiProfecionales:CPersona
     {
         string matricula;
-        uint codigo;
+        string codigo;
         private CategoriaProfecional categoriaProfecional;
 
-        public CiProfecionales(string nombre, string apellido,string matricula, uint codigo, uint cATEGOTIA_PROFECIONAL):base(nombre,apellido)
+        public CiProfecionales(string nombre, string apellido,string matricula, string codigo, uint cATEGOTIA_PROFECIONAL):base(nombre,apellido)
         {
             this.matricula = matricula;
             this.codigo = codigo;
@@ -31,6 +31,6 @@ namespace Emergencia_Medica
             return base.ToString() + "\n Matricula :"+ this.matricula + "\n Codigo :"+ this.codigo +"\n Categoria Profecional :"+ this.categoriaProfecional.ToString();
         }
 
-        public uint geCodigo() { return this.codigo; }
+        public string geCodigo() { return this.codigo; }
     }
 }
