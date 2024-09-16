@@ -8,8 +8,8 @@ namespace Emergencia_Medica
         {
             // INICIO VARIABLES
             sbyte opcion;
-            string nombre, apellido, distrito, codigo, codigoDelProfecional, patente, marca, modelo, matricula;
-            uint licencia, tipoDeProfecional, tipoDeAmbulancia;
+            string nombre, apellido, distrito, codigo, codigoDelProfecional, patente, marca, modelo;
+            uint licencia, tipoDeProfecional, matricula, tipoDeAmbulancia;
             char tipoDePersona, tipoDeVehiculo;
 
             DateOnly fecha;
@@ -27,6 +27,7 @@ namespace Emergencia_Medica
 
             ArrayList profcionalesDeLaConformacion = new ArrayList();
             ArrayList listaTotaldeVehiculos = new ArrayList();
+            ArrayList listaDePersonas = new ArrayList();
 
 
             //CATEGORIA_PROFECIONAL cat;
@@ -75,7 +76,7 @@ namespace Emergencia_Medica
                             case 'B':
 
                                 tipoDeProfecional = uint.Parse(interfaz.PedirDato(" El Tipo de Profecional \n [1] Medico \n [2] Enfermero \n [3] ParaMedico"));
-                                matricula = interfaz.PedirDato("El Numero de Matricula del Profcional");
+                                matricula =uint.Parse( interfaz.PedirDato("El Numero de Matricula del Profcional"));
 
                                 profecionale = new CiProfecionales(nombre, apellido, codigo, matricula, tipoDeProfecional);
                                 listaDeProfecionales.Add(profecionale);
@@ -161,7 +162,7 @@ namespace Emergencia_Medica
             {
                 foreach (CiProfecionales profecional in listaDeProfecionales)
                 {
-                    if (profecional.geCodigo() == legajo)
+                    if (profecional.getLegajo() == legajo)
                     {
                         return profecional;
                     }
@@ -174,12 +175,25 @@ namespace Emergencia_Medica
             {
                 foreach (CChofer ch in listaDeChoferes)
                 {
-                    if (ch.getCodigo() == legajo)
+                    if (ch.getLegajo() == legajo)
                     {
                         return ch;
                     }
                 }
 
+                return null;
+            }
+            CPersona BuscarPersona(string legajo)
+            {
+                listaDePersonas = UnirListaDePersonas(listaDeChoferes, listaDeProfecionales);
+
+                foreach(CPersona persona in listaDePersonas)
+                {
+                    if(persona.getLegajo()== legajo)
+                    {
+                        return persona;
+                    }       
+                }
                 return null;
             }
 
@@ -200,6 +214,8 @@ namespace Emergencia_Medica
                 return null;
             }
 
+            
+
             ArrayList UnionDeListasAUTOSyAmbulancia(List<CAuto> auto, List<CAmbulancia> ambulancia)
             {
                 ArrayList arrayList = new ArrayList();
@@ -212,6 +228,23 @@ namespace Emergencia_Medica
                 foreach (CAmbulancia mbulancia in ambulancia)
                 {
                     arrayList.Add(mbulancia);
+                }
+
+                return arrayList;
+            }
+
+            ArrayList UnirListaDePersonas(List<CChofer> chofer ,List<CiProfecionales> profecionales) 
+            {
+                ArrayList arrayList = new ArrayList(); 
+
+                foreach(CChofer chof in chofer)
+                {
+                    arrayList.Add(chof);
+                }
+
+                foreach(CiProfecionales ciProfecionales in profecionales)
+                {
+                    arrayList.Add(ciProfecionales);
                 }
 
                 return arrayList;
