@@ -46,6 +46,18 @@ namespace Emergencia_Medica
             return true;
         }
 
+        public CPersona BucarIntegrante(string legajo)
+        {
+            foreach(CPersona persona in listaDeIntergrantes)
+            {
+                if(persona.getLegajo() == legajo)
+                {
+                    return persona;
+                }
+
+            }
+            return null;
+        }
         public bool SacarUnIntergrante(CPersona persona)
         {
             listaDeIntergrantes.Remove(persona);
