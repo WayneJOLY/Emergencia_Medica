@@ -28,6 +28,7 @@ namespace Emergencia_Medica
             ArrayList profcionalesDeLaConformacion = new ArrayList();
             ArrayList listaTotaldeVehiculos = new ArrayList();
             ArrayList listaDePersonas = new ArrayList();
+            
 
 
             //CATEGORIA_PROFECIONAL cat;
@@ -127,7 +128,7 @@ namespace Emergencia_Medica
                         break;
                     case 4:
 
-                        codigo = interfaz.PedirDato("El Codigo Del Chofer");
+                        codigo = interfaz.PedirDato("El legajo Del Chofer");
 
                         chofer = BuscarChofer(codigo);
                         patente = interfaz.PedirDato("La Patente Del Vehiculo");
@@ -140,15 +141,36 @@ namespace Emergencia_Medica
                         {
 
                             profecionale = BucarProfecional(codigoDelProfecional);
+
                             if (profecionale != null)
                             {
                                 profcionalesDeLaConformacion.Add(profecionale);
+                                profecionale.setEstaEnUnaConformacion(true);
                             }
 
                             codigoDelProfecional = interfaz.PedirDato("El Codigo del Profecional \n Presione [N] PARA SALIR");
                         } while (codigoDelProfecional != "N" || codigoDelProfecional != "n");
 
                         conformacion = new CConformacion(fecha, chofer, profcionalesDeLaConformacion, vehiculo);
+
+                        if(chofer!=null && vehiculo != null && profcionalesDeLaConformacion.Count >= 1)
+                        {
+                            listaDeConformaciones.Add(conformacion);
+                        }
+                        break;
+                    case 5:
+                        codigo = interfaz.PedirDato("El legajo Del Del Tabajador");
+                        CPersona persona =BuscarPersona(codigo);
+
+                        if(persona != null &&  !persona.getEstaEnUnaConformacion() )
+                        {
+                            listaDePersonas.Remove(persona);
+                            Console.WriteLine($" Se Removió perfectamente a {persona.ToString()}");
+                        }
+                       
+                        break;
+                    case 6:
+
                         break;
                 }
 
